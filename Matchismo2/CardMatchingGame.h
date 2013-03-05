@@ -22,5 +22,4 @@
 @property (nonatomic, readonly) NSString *flipResult;
 @property (nonatomic) NSInteger gameMode; //2 = match 2 cards, 3 = match 3 cards
 
-
 @end
