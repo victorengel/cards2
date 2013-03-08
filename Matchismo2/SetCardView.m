@@ -86,6 +86,7 @@
        |---|                                     shapeMargin = halfBounds - halfShape
     |------|                                     xOffset = margin + shapeMargin - bezMinx * ratio
     */
+   //just a change to test bitbucket
    UIColor *color = [SetCard colorAsUIColor:self.color];
    NSLog(@"Card is %@",self.description);
    NSLog(@"Number is %@ %d",self.number, [SetCard numberAsNumber:self.number]);
