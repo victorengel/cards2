@@ -24,5 +24,6 @@
 + (NSUInteger)symbolAsNumber: (NSString *)symbol;
 + (NSUInteger)shadingAsNumber: (NSString *)shading;
 + (NSUInteger)colorAsNumber: (NSString *)color;
++ (UIColor *)colorAsUIColor: (NSString *)color;
 
 @end

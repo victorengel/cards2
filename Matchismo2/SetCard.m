@@ -114,4 +114,19 @@
 {
    return [[SetCard validColors] indexOfObjectIdenticalTo:color];
 }
++ (UIColor *)colorAsUIColor: (NSString *)color
+{
+   UIColor *returnColor = [[UIColor alloc] init];
+   if ([color isEqualToString:@"red"]) {
+      returnColor = [UIColor redColor];
+   }
+   if ([color isEqualToString:@"purple"]) {
+      returnColor = [UIColor purpleColor];
+   }
+   if ([color isEqualToString:@"green"]) {
+      //returnColor = [UIColor greenColor];
+      returnColor = [UIColor colorWithRed:0.0 green:0.6 blue:0.0 alpha:1.0];
+   }
+   return returnColor;
+}
 @end
