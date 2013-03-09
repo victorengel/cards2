@@ -50,6 +50,7 @@
 
 -(void)drawPips
 {
+   //Hard code number and shading for testing purposes.
    /*
     +---------------------------------------+
     |                                       |>   margin
@@ -166,26 +167,33 @@
          [[UIColor whiteColor] setFill];
       }
       [thePath stroke];
-      [thePath fill];
+      /*
+       If you need to remove the clipping region to perform subsequent drawing operations, you must save the current graphics state (using the CGContextSaveGState function) before calling this method. When you no longer need the clipping region, you can then restore the previous drawing properties and clipping region using the CGContextRestoreGState function.
+       */
       if ([self.shading isEqualToString:@"striped"]) {
+         CGContextRef savedContext = UIGraphicsGetCurrentContext();
+         CGContextSaveGState(savedContext);
          [thePath addClip];
          //Now draw some vertical lines
          CGFloat lineWidth = self.bounds.size.width / (20*4.0); // 25% of the fill is line, the rest is space
          CGFloat lineSpacing = self.bounds.size.width / 20.0;
-         UIBezierPath *thePath = [UIBezierPath bezierPath];
+         UIBezierPath *theFillPath = [UIBezierPath bezierPath];
          CGFloat yStart = 0.0;
          CGFloat yStop = self.bounds.size.height;
          for (int lineNumber = 0; lineNumber<20; lineNumber++) {
             CGFloat xPosition = lineNumber * lineSpacing;
-            [thePath moveToPoint:CGPointMake(xPosition, yStart)];
-            [thePath addLineToPoint:CGPointMake(xPosition, yStop)];
+            [theFillPath moveToPoint:CGPointMake(xPosition, yStart)];
+            [theFillPath addLineToPoint:CGPointMake(xPosition, yStop)];
          }
-         thePath.lineWidth = lineWidth;
-         [thePath stroke];
-         //[thePath fill];
+         theFillPath.lineWidth = lineWidth;
+         [theFillPath stroke];
+         CGContextRestoreGState(savedContext);
+      } else {
+         [thePath fill];
       }
       yOffset += normalizedBezHeight;
       yOffset += spaceBetweenPips;
+      thePath = nil;
    }
 }
 
