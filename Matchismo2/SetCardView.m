@@ -26,27 +26,12 @@
    [[UIColor blackColor] setStroke];
    [roundedRect stroke];
    
-   if (self.faceUp) {
-      [self drawPips];
-      //[self drawCorners];
-   } else {
-      //For set card set alpha to very low or something.
-      //[self drawPips];
-      //[self drawCorners];
-      //self.alpha = 0.1;
-   }
-   
+   [self drawPips];
 }
 -(void)viewDidLoad
 {
    [self drawPips];
 }
-#define PIP_FONT_SCALE_FACTOR 0.20
-
-#define PIP_HOFFSET_PERCENTAGE 0.165
-#define PIP_VOFFSET1_PERCENTAGE 0.090
-#define PIP_VOFFSET2_PERCENTAGE 0.175
-#define PIP_VOFFSET3_PERCENTAGE 0.270
 
 -(void)drawPips
 {
@@ -89,15 +74,8 @@
     */
    //just a change to test bitbucket
    UIColor *color = [SetCard colorAsUIColor:self.color];
-   NSLog(@"Card is %@",self.description);
-   NSLog(@"Number is %@ %d",self.number, [SetCard numberAsNumber:self.number]);
-   NSLog(@"Shading is %@",self.shading);
-   NSLog(@"Symbol is %@",self.symbol);
-   NSLog(@"Color is %@",self.color);
-   NSLog(@"Bounds height is %f",self.bounds.size.height);
-   // Bezier min y = 288, max y = 456, dif y =
-   CGFloat bezMinY = 288.0;CGFloat bezMaxY = 456.0;CGFloat bezHeight = bezMaxY - bezMinY;NSLog(@"bezHeight is %f",bezHeight);
-   CGFloat bezMinX = 240.0;CGFloat bezMaxX = 528.0;CGFloat bezWidth = bezMaxX - bezMinX;NSLog(@"bezWidth is %f",bezWidth);
+   CGFloat bezMinY = 288.0;CGFloat bezMaxY = 456.0;CGFloat bezHeight = bezMaxY - bezMinY;
+   CGFloat bezMinX = 240.0;CGFloat bezMaxX = 528.0;CGFloat bezWidth = bezMaxX - bezMinX;
    CGFloat marginSize = self.bounds.size.height / 20.0;
    CGFloat ratio;// = self.bounds.size.width / 780.0;
    ratio = (self.bounds.size.height - marginSize*2.0)/6.44/bezHeight; // Calculate ratio so bezier shape is 1/6.44 height of the view.
@@ -107,20 +85,15 @@
    CGFloat halfBounds = self.bounds.size.width/2.0 - marginSize;
    CGFloat shapeMargin = halfBounds - halfShape;
    CGFloat xOffset = marginSize + shapeMargin - bezMinX * ratio;
-   NSLog(@"Normalized bez height: %f",normalizedBezHeight);
    CGFloat freeSpace = self.bounds.size.height;                            //Total free space (including pips)
    freeSpace -= 2.0 * marginSize;                                          //Free space not counting margins.
    CGFloat spaceBetweenPips, startingYOffset, yOffset;
    int numberOfPips = [SetCard numberAsNumber:self.number] + 1;
    freeSpace -= (numberOfPips) * normalizedBezHeight;                      //Free space not including shapes.
-   NSLog(@"Free space after subtracting pips: %f",freeSpace);
    spaceBetweenPips = freeSpace / (numberOfPips + 1.0);                    //Total number of spaces is one more than number of pips
-   NSLog(@"Starting offset is %f / (%d + 1) = %f",freeSpace,numberOfPips,spaceBetweenPips);
    startingYOffset = marginSize + spaceBetweenPips - bezMinY*ratio;      //Subtract bezMinY*ratio because beziers are not zero based.
-   NSLog(@"Starting offset after subtracting yMin: %f is %f",bezMinY*ratio,startingYOffset);
    yOffset = startingYOffset;
    for (int i=1; i<=numberOfPips; i++) {
-      NSLog(@"yOffset for current bez: %f",yOffset);
       UIBezierPath *thePath = [UIBezierPath bezierPath];
       if ([self.symbol isEqualToString:@"squiggle"]) {
          [thePath moveToPoint:CGPointMake(    xOffset + ratio*240.0,ratio*456.0+yOffset)];  //left
@@ -197,64 +170,6 @@
    }
 }
 
--(void)drawPipsWithHorizontalOffset:(CGFloat)hoffset
-                     verticalOffset:(CGFloat)voffset upsideDown:(BOOL)upsideDown
-{
-   /*if (upsideDown) [self pushContextAndRotateUpsideDown];
-   CGPoint middle = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
-   UIFont *pipFont = [UIFont systemFontOfSize:self.bounds.size.width * PIP_FONT_SCALE_FACTOR];
-   NSAttributedString *attributedSuit = [[NSAttributedString alloc] initWithString:self.suit attributes:@{NSFontAttributeName : pipFont}];
-   CGSize pipSize = attributedSuit.size;
-   CGPoint pipOrigin = CGPointMake(
-                                   middle.x-pipSize.width/2.0-hoffset*self.bounds.size.width,
-                                   middle.y-pipSize.height/2.0-voffset*self.bounds.size.height
-                                   );
-   [attributedSuit drawAtPoint:pipOrigin];
-   if (hoffset) {
-      pipOrigin.x += hoffset*2.0*self.bounds.size.width;
-      [attributedSuit drawAtPoint:pipOrigin];
-   }
-   
-   if (upsideDown) [self popContext];*/
-}
-
-
--(void)drawPipsWithHorizontalOffset:(CGFloat)hoffset
-                     verticalOffset:(CGFloat)voffset mirroredVertically:(BOOL)mirroredVertically
-{
-   [self drawPipsWithHorizontalOffset:hoffset verticalOffset:voffset upsideDown:NO];
-   if (mirroredVertically) {
-      [self drawPipsWithHorizontalOffset:hoffset verticalOffset:voffset upsideDown:YES];
-   }
-}
-
--(void)drawCorners
-{
-   NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-   paragraphStyle.alignment = NSTextAlignmentCenter;
-   
-   UIFont *cornerFont = [UIFont systemFontOfSize:self.bounds.size.width * 0.20];
-   
-   NSAttributedString *cornerText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@\n%@%@", self.number, self.symbol, self.shading, self.color] attributes:@{NSParagraphStyleAttributeName : paragraphStyle, NSFontAttributeName : cornerFont}];
-   
-   CGRect textBounds;
-   textBounds.origin = CGPointMake(2.0, 2.0);
-   textBounds.size = cornerText.size;
-   [cornerText drawInRect:textBounds];
-   
-   [self pushContextAndRotateUpsideDown];
-   [cornerText drawInRect:textBounds];
-   [self popContext];
-}
-
--(void)pushContextAndRotateUpsideDown
-{
-   CGContextRef context = UIGraphicsGetCurrentContext();
-   CGContextSaveGState(context);
-   CGContextTranslateCTM(context, self.bounds.size.width, self.bounds.size.height);
-   CGContextRotateCTM(context, M_PI);
-}
-
 -(void)popContext
 {
    CGContextRestoreGState(UIGraphicsGetCurrentContext());
@@ -286,18 +201,7 @@
    _faceUp = faceUp;
    [self setNeedsDisplay];
 }
-/*-(void)viewDidLoad
-{
-   if ([self.symbol isEqualToString:@"squiggle"]) {
-      NSUInteger numberOfSymbols = [SetCard numberAsNumber:self.number];
-      if (numberOfSymbols != NSNotFound) {
-         for (int i=0; [SetCard numberAsNumber:self.number]; i++) {
-            SetCardView *setCardView = [[SetCardView alloc] init];
-            [self addSubview:setCardView];
-         }
-      }
-   }
-}*/
+
 # pragma mark _ Initialization
 -(void)setUp
 {

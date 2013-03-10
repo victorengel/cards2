@@ -15,7 +15,6 @@
 		A7D8667616E6757800083557 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A7D8667516E6757800083557 /* Default.png */; };
 		A7D8667816E6757800083557 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7D8667716E6757800083557 /* Default@2x.png */; };
 		A7D8667A16E6757800083557 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7D8667916E6757800083557 /* Default-568h@2x.png */; };
-		A7D8667D16E6757800083557 /* MainStoryboard.storyboard.old in Resources */ = {isa = PBXBuildFile; fileRef = A7D8667B16E6757800083557 /* MainStoryboard.storyboard.old */; };
 		A7D8668A16E6762500083557 /* CardGameAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7D8668716E6762500083557 /* CardGameAppDelegate.m */; };
 		A7D8668B16E6762500083557 /* CardGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7D8668916E6762500083557 /* CardGameViewController.m */; };
 		A7D866A016E6768C00083557 /* J♠.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A7D8669016E6768C00083557 /* J♠.jpg */; };
@@ -74,7 +73,6 @@
 		A7D8667516E6757800083557 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		A7D8667716E6757800083557 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		A7D8667916E6757800083557 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		A7D8667C16E6757800083557 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = en; path = en.lproj/MainStoryboard.storyboard.old; sourceTree = "<group>"; };
 		A7D8668616E6762500083557 /* CardGameAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardGameAppDelegate.h; sourceTree = "<group>"; };
 		A7D8668716E6762500083557 /* CardGameAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardGameAppDelegate.m; sourceTree = "<group>"; };
 		A7D8668816E6762500083557 /* CardGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardGameViewController.h; sourceTree = "<group>"; };
@@ -188,9 +186,6 @@
 				A7D8668C16E6763400083557 /* Model */,
 				A7D8668616E6762500083557 /* CardGameAppDelegate.h */,
 				A7D8668716E6762500083557 /* CardGameAppDelegate.m */,
-				A7D8668816E6762500083557 /* CardGameViewController.h */,
-				A7D8668916E6762500083557 /* CardGameViewController.m */,
-				A7D8667B16E6757800083557 /* MainStoryboard.storyboard.old */,
 				A7D866EF16E678A300083557 /* MainStoryboard.storyboard */,
 				A7D8666A16E6757800083557 /* Supporting Files */,
 			);
@@ -238,6 +233,8 @@
 		A7D8668E16E6764A00083557 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				A7D8668816E6762500083557 /* CardGameViewController.h */,
+				A7D8668916E6762500083557 /* CardGameViewController.m */,
 				A7D866C016E676C000083557 /* PlayingCardGameViewController.h */,
 				A7D866C116E676C000083557 /* PlayingCardGameViewController.m */,
 				A7D866C316E676DA00083557 /* SetGameViewController.h */,
@@ -383,7 +380,6 @@
 				A7D8667616E6757800083557 /* Default.png in Resources */,
 				A7D8667816E6757800083557 /* Default@2x.png in Resources */,
 				A7D8667A16E6757800083557 /* Default-568h@2x.png in Resources */,
-				A7D8667D16E6757800083557 /* MainStoryboard.storyboard.old in Resources */,
 				A7D866A016E6768C00083557 /* J♠.jpg in Resources */,
 				A7D866A116E6768C00083557 /* J♠@2x.jpg in Resources */,
 				A7D866A216E6768C00083557 /* J♣.jpg in Resources */,
@@ -451,14 +447,6 @@
 				A7D8666D16E6757800083557 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		A7D8667B16E6757800083557 /* MainStoryboard.storyboard.old */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A7D8667C16E6757800083557 /* en */,
-			);
-			name = MainStoryboard.storyboard.old;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -561,6 +549,7 @@
 				A7D8668516E6757800083557 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
