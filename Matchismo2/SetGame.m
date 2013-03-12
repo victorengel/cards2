@@ -5,6 +5,7 @@
 //  Created by Victor Engel on 2/7/13.
 //  Copyright (c) 2013 Victor Engel. All rights reserved.
 //
+// New code to modify, copied from CardMatchingGame
 
 #import "SetGame.h"
 
@@ -29,19 +30,29 @@
    return _otherCards;
 }
 
-
-//-(NSMutableArray *)cards
-//-(NSMutableArray *)otherCards
-//-(Card *)cardAtIndex:(NSUInteger)index
-//inherited from CardMatchingGame. No need to duplicate.
-
 -(id)initWithCardCount:(NSUInteger)cardCount usingDeck:(Deck *)deck
 {
-   NSLog(@"Initialize set game using %d cards",cardCount);
-   NSLog(@"Use deck with %d cards",deck.cardCount);
-   self = [super initWithCardCount:cardCount usingDeck:deck];
+   self = [super init];
+   if (self) {
+      for (int i=0; i<=cardCount; i++) {
+         Card *card = [deck drawRandomCard];
+         if (!card) {
+            self = nil; //This can happen if there are not enough cards in the deck.
+            break;
+         } else {
+            self.cards[i] = card;
+         }
+      }
+   }
    self.gameMode = 3;
    return self;
+}
+
+-(Card *)cardAtIndex:(NSUInteger)index
+{
+   NSLog(@"CardMatchingGame-cardAtIndex %d",index);
+   NSLog(@"%d cards in self.cards",[self.cards count]);
+   return (index < [self.cards count]) ? self.cards[index] : nil;
 }
 
 -(void)flipCardAtIndex:(NSUInteger)index gameMode:(NSUInteger)gameMode
@@ -67,7 +78,7 @@
                //If there is a score, make cards unplayable.
                self.flipResult = card.contents;
                for (Card *otherCard in self.otherCards) {
-                  self.flipResult = [self.flipResult stringByAppendingString:[NSString stringWithFormat:@" %@",otherCard.contents]];
+                  self.flipResult = [self.flipResult stringByAppendingString:[NSString stringWithFormat:@",%@",otherCard.contents]];
                }
                self.flipResult = [self.flipResult stringByAppendingString:[NSString stringWithFormat:@" matched: %d",matchScore]];
                NSLog(@"Flip result is %@",self.flipResult);
@@ -96,5 +107,6 @@
       }
    }
 }
-
 @end
+
+

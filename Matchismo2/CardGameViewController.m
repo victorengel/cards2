@@ -16,7 +16,7 @@
 //@property (nonatomic,strong) Deck* theDeck;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *flipResultLabel;
-@property (weak, nonatomic) IBOutlet UICollectionView *cardCollectionView;
+
 @end
 
 @implementation CardGameViewController
@@ -107,12 +107,4 @@
    [self updateUI];
    [self enableSegmentedControl];
 }
-- (IBAction)matchModeSwitch:(UISegmentedControl *)sender {
-   if (sender.selectedSegmentIndex == 0) {
-      self.game.gameMode = 2;
-   } else {
-      self.game.gameMode = 3;
-   }
-}
-
 @end

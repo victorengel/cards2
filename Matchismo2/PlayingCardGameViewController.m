@@ -19,7 +19,7 @@
 }
 - (NSUInteger) startingCardCount //abstract in CardGameViewController, but we implement it here.
 {
-   return 20;
+   return 22;
 }
 -(void)updateCell: (UICollectionViewCell *)cell usingCard:(Card *)card //abstract in CardGameViewController, but we implement it here.
 {

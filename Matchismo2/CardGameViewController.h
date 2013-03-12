@@ -13,7 +13,9 @@
 
 -(Deck *)createDeck; //abstract
 @property (nonatomic) NSUInteger startingCardCount; //abstract
+@property (weak, nonatomic) IBOutlet UICollectionView *cardCollectionView;
 
 -(void)updateCell: (UICollectionViewCell *)cell usingCard:(Card *)card; //abstract
+-(void)updateUI;
 
 @end
