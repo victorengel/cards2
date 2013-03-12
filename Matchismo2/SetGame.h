@@ -10,4 +10,5 @@
 
 @interface SetGame : CardMatchingGame
 
+-(NSUInteger)cardCount;
 @end

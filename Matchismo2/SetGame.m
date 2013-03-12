@@ -23,7 +23,10 @@
    if (!_cards) _cards = [[NSMutableArray alloc] init];
    return _cards;
 }
-
+-(NSUInteger)cardCount
+{
+   return [self.cards count];
+}
 -(NSMutableArray *)otherCards
 {
    if (!_otherCards) _otherCards = [[NSMutableArray alloc] init];
@@ -34,7 +37,7 @@
 {
    self = [super init];
    if (self) {
-      for (int i=0; i<=cardCount; i++) {
+      for (int i=0; i<cardCount; i++) {
          Card *card = [deck drawRandomCard];
          if (!card) {
             self = nil; //This can happen if there are not enough cards in the deck.
@@ -50,8 +53,6 @@
 
 -(Card *)cardAtIndex:(NSUInteger)index
 {
-   NSLog(@"CardMatchingGame-cardAtIndex %d",index);
-   NSLog(@"%d cards in self.cards",[self.cards count]);
    return (index < [self.cards count]) ? self.cards[index] : nil;
 }
 
@@ -81,7 +82,6 @@
                   self.flipResult = [self.flipResult stringByAppendingString:[NSString stringWithFormat:@",%@",otherCard.contents]];
                }
                self.flipResult = [self.flipResult stringByAppendingString:[NSString stringWithFormat:@" matched: %d",matchScore]];
-               NSLog(@"Flip result is %@",self.flipResult);
                card.Unplayable = YES;
                card.faceUp = YES;
                for (Card *otherCard in self.otherCards) {

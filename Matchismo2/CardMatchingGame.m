@@ -53,7 +53,12 @@
    NSLog(@"%d cards in self.cards",[self.cards count]);
    return (index < [self.cards count]) ? self.cards[index] : nil;
 }
-
+-(void)deleteCards:(NSMutableArray *)cardsToDelete
+{
+   for (Card *card in cardsToDelete) {
+      if (card) [self.cards removeObject:card];
+   }
+}
 #define MATCH_BONUS 4
 #define MATCH_PENALTY -2
 #define FLIP_COST -1

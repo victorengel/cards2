@@ -17,6 +17,7 @@
 -(void)flipCardAtIndex:(NSUInteger)index gameMode:(NSUInteger)gameMode;
 
 -(Card *)cardAtIndex:(NSUInteger)index;
+-(void)deleteCards:(NSMutableArray *)cardToDelete;
 
 @property (nonatomic, readonly) int score;
 @property (nonatomic, readonly) NSString *flipResult;
