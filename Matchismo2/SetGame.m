@@ -76,8 +76,10 @@
          int totalCards = 1 + [self.otherCards count];
          if (totalCards == gameMode) {
             int matchScore = [card match:self.otherCards];
+            // There are 4 attributes to a card. There is one point awarded for each attribute, so a score of 4 is a match.
             if (matchScore == 4) {
                //If there is a score, make cards unplayable.
+               /*
                self.flipResult = card.contents;
                for (Card *otherCard in self.otherCards) {
                   self.flipResult = [self.flipResult stringByAppendingString:[NSString stringWithFormat:@",%@",otherCard.contents]];
@@ -90,6 +92,12 @@
                   otherCard.unplayable = YES;
                }
                [self.otherCards removeAllObjects];
+                */
+               //For HW3 remove cards if there is a match.
+               //We need to remove card and otherCards
+               [self.otherCards addObject:card];
+               [self deleteCards:self.otherCards];
+               self.otherCards = nil;
                self.score += 1;
             } else {
                self.flipResult = @"No match - flip oldest card";

@@ -56,6 +56,14 @@
          setCardView.number = setCard.number;
          setCardView.faceUp = setCard.isFaceUp;
          setCardView.alpha = setCard.isUnplayable ? 0.1 : 1.0;
+         //Add following section to try to get rid of remmant highlighting of cells.
+         if (setCard.isFaceUp && !setCard.isUnplayable) {
+            cell.backgroundColor = [UIColor grayColor];
+            [cell setHighlighted:YES];
+         } else {
+            cell.backgroundColor = nil;
+            [cell setHighlighted:NO];
+         }
       }
    }
 }
@@ -65,6 +73,9 @@
    //[super updateUI]; // Does this block:
    //HW3#5 remove these cards from the display.
    //Remove the unplayable cards.
+   //This is now done in the game.
+   [self.cardCollectionView reloadData];
+   /*
    NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
    NSMutableArray *cardsToDelete = [[NSMutableArray alloc] init];
    NSIndexPath *indexPath; //Move the declaration out of the loop to expand its scope.
@@ -72,7 +83,7 @@
       indexPath = [self.cardCollectionView indexPathForCell:cell];
       Card *card = [self.game cardAtIndex:indexPath.item];
       //SetCard *setCard = (SetCard *)card;
-      if (card.isFaceUp /*&& !setCard.isUnplayable*/) {
+      if (card.isFaceUp \*&& !setCard.isUnplayable*\) {
          [indexPathsToDelete insertObject:indexPath atIndex:[indexPathsToDelete count]];
          //[self.game deleteCard:card];
          [cardsToDelete insertObject:card  atIndex:[cardsToDelete count]];
@@ -84,6 +95,7 @@
       //[self.cardCollectionView reloadData];
       [self.cardCollectionView deleteItemsAtIndexPaths:indexPathsToDelete];
    }
+   */
    for (UICollectionViewCell *cell in [self.cardCollectionView visibleCells]) {
       NSIndexPath *indexPath = [self.cardCollectionView indexPathForCell:cell];
       Card *card = [self.game cardAtIndex:indexPath.item];
