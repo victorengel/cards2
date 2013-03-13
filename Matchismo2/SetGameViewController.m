@@ -70,32 +70,24 @@
 
 -(void)updateUI
 {
-   //[super updateUI]; // Does this block:
-   //HW3#5 remove these cards from the display.
-   //Remove the unplayable cards.
-   //This is now done in the game.
-   [self.cardCollectionView reloadData];
-   /*
+   //Cards are now deleted in SetGame. If they are deleted, in the above code, card should be nil, I think. Try taking advantage
+   //of that to be able to use deleteItemsAtIndexPaths for animation. Should be able to do this if three cards are nil.
    NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
-   NSMutableArray *cardsToDelete = [[NSMutableArray alloc] init];
+   NSUInteger nilCount = 0;
    NSIndexPath *indexPath; //Move the declaration out of the loop to expand its scope.
    for (UICollectionViewCell *cell in [self.cardCollectionView visibleCells]) {
       indexPath = [self.cardCollectionView indexPathForCell:cell];
       Card *card = [self.game cardAtIndex:indexPath.item];
-      //SetCard *setCard = (SetCard *)card;
-      if (card.isFaceUp \*&& !setCard.isUnplayable*\) {
+      if (!card) {
+         nilCount++;
          [indexPathsToDelete insertObject:indexPath atIndex:[indexPathsToDelete count]];
-         //[self.game deleteCard:card];
-         [cardsToDelete insertObject:card  atIndex:[cardsToDelete count]];
       }
    }
-   NSLog(@"indexPathsToDelete count is: %d",[indexPathsToDelete count]);
-   if ([indexPathsToDelete count] == 3) {
-      [self.game deleteCards:cardsToDelete];
-      //[self.cardCollectionView reloadData];
+   if (nilCount==3) {
       [self.cardCollectionView deleteItemsAtIndexPaths:indexPathsToDelete];
+   } else {
+      [self.cardCollectionView reloadData];
    }
-   */
    for (UICollectionViewCell *cell in [self.cardCollectionView visibleCells]) {
       NSIndexPath *indexPath = [self.cardCollectionView indexPathForCell:cell];
       Card *card = [self.game cardAtIndex:indexPath.item];
