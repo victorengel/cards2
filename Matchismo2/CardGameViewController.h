@@ -17,5 +17,6 @@
 
 -(void)updateCell: (UICollectionViewCell *)cell usingCard:(Card *)card; //abstract
 -(void)updateUI;
+- (IBAction)deal:(UIButton *)sender;
 
 @end

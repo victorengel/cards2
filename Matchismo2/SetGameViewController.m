@@ -22,8 +22,12 @@
 -(SetGame *)game
 {
    //   if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:self.startingCardCount usingDeck:[self createDeck]];
-   if (!_game) _game = [[SetGame alloc] initWithCardCount:self.startingCardCount
-                                                usingDeck:[self createDeck]];
+   if (!_game) {
+      SetCardDeck *deck = (SetCardDeck *)[self createDeck];
+      _game = [[SetGame alloc] initWithCardCount:self.startingCardCount
+                                       usingDeck:deck];
+      _game.deck = deck;
+   }
    return _game;
 }
 
@@ -93,4 +97,19 @@
       }
    }
 }
+- (IBAction)deal:(UIButton *)sender {
+   //User has touched the deal button. Clean up and deal a new deck of cards.
+   NSUInteger cardsInPlay = [self.game cardCount];
+   NSUInteger cardsInDeck = [self.game.deck cardCount];
+   if (cardsInDeck >=3 && cardsInPlay >0) {
+      // Deal 3 more cards
+      [self.game dealThreeMore];
+      [self.cardCollectionView reloadData];
+      [self updateUI];
+   } else {
+      [super deal:sender];
+   }
+   [self updateUI];
+}
+
 @end

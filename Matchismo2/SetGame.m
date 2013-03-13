@@ -8,6 +8,7 @@
 // New code to modify, copied from CardMatchingGame
 
 #import "SetGame.h"
+#import "SetCardDeck.h"
 
 @interface SetGame()
 @property (strong, nonatomic) NSMutableArray *cards;
@@ -105,6 +106,13 @@
             [self.otherCards addObject:card];
          }
       }
+   }
+}
+-(void)dealThreeMore
+{
+   for (int i=0; i<3; i++) {
+      Card *card = [self.deck drawRandomCard];
+      if (card) [self.cards addObject:card];
    }
 }
 @end

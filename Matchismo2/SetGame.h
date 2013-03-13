@@ -7,8 +7,11 @@
 //
 
 #import "CardMatchingGame.h"
+#import "SetCardDeck.h"
 
 @interface SetGame : CardMatchingGame
+@property (strong, nonatomic) SetCardDeck *deck;
 
 -(NSUInteger)cardCount;
+-(void)dealThreeMore;
 @end
